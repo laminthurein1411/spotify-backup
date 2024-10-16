@@ -44,7 +44,7 @@ if (os.environ["HEALTH_CHECK_URL"]):
     start_time = time.time()
 
 # filename with yyyy-mm-dd HH:MM
-save_loc = f"spotify-backup ({time.strftime('%Y-%m-%d')} {time.strftime('%H:%M')})"
+save_loc = f"{os.path.dirname(os.path.realpath(__file__))}/spotify-backup ({time.strftime('%Y-%m-%d')} {time.strftime('%H:%M')})"
 
 logging.basicConfig(level=20,
                     datefmt="%I:%M:%S",
@@ -514,7 +514,7 @@ os.makedirs(f'{save_loc}/Podcasts', exist_ok=True)
 
 # save liked songs
 logging.info('Loading liked songs...')
-liked_tracks = spotify.list(f"users/{me['id']}/tracks", {'limit': 50})
+liked_tracks = spotify.list(f"me/tracks", {'limit': 50})
 logging.info('Saving liked songs')
 save_track(f'{save_loc}/Music/Liked.csv', liked_tracks)
 
