@@ -602,7 +602,7 @@ if b2_upload:
     b2_api.authorize_account("production", keyID, appKey)
 
     # setup upload info
-    b2_save_loc = f"Spotify/{save_loc}"
+    b2_save_loc = f"Spotify{save_loc.replace(os.path.dirname(os.path.realpath(__file__)), '')}"
     file_info = {'how', 'good-file'}
     bucket = b2_api.get_bucket_by_name(os.environ['B2_BUCKET'])
 
