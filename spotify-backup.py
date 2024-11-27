@@ -52,7 +52,7 @@ logging.basicConfig(level=20,
 
 
 # simple recursive y/n input with default
-def yesno(question, default=None):
+def yesno(question, default=True):
     ans = input(question).strip().lower()
 
     if default is not None:
