@@ -21,11 +21,11 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Execute Python script
-        run: python main.py
+        run: python spotify-backup.py
         env:
-          SPOTIFY_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          SPOTIFY_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          SPOTIFY_REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
           
 
       - name: Keepalive
