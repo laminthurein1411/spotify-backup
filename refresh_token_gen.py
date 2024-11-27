@@ -15,7 +15,7 @@ CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
 
 # Server-side
 port = 8888
-redirect_uri = f"http://localhost:8888/callback"
+redirect_uri = "http://localhost:8888/callback"
 scope = "playlist-read-private playlist-read-collaborative user-library-read user-follow-read"
 
 
