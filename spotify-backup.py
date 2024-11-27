@@ -501,10 +501,7 @@ me = spotify.get('me')
 logging.info(f"Logged in as {me['display_name']} ({me['id']})")
 
 # for playlists not owned by user
-if always_yes:
-    save_foreign_playlists = yesno('Save tracks of playlists not owned by you (foreign)? [y/N]: ', 'y')
-else:
-    save_foreign_playlists = True
+    save_foreign_playlists = always_yes
 
 # create needed dirs
 logging.info('Creating needed directories')
