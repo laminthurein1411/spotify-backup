@@ -502,7 +502,7 @@ logging.info(f"Logged in as {me['display_name']} ({me['id']})")
 
 # for playlists not owned by user
 if not always_yes:
-    save_foreign_playlists = yesno('Save tracks of playlists not owned by you (foreign)? [y/N]: ', 'n')
+    save_foreign_playlists = yesno('Save tracks of playlists not owned by you (foreign)? [y/N]: ', 'y')
 else:
     save_foreign_playlists = True
 
