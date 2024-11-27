@@ -51,6 +51,29 @@ logging.basicConfig(level=20,
                     format="[%(asctime)s] %(message)s")
 
 
+# simple recursive y/n input with default
+def yesno(question, default=None):
+    ans = input(question).strip().lower()
+
+    if default is not None:
+        if ans == '':
+            if default == 'y':
+                return True
+            return False
+        elif ans not in ['y', 'n']:
+            print(f'{ans} is invalid, please try again...')
+            return yesno(question)
+        if ans == 'y':
+            return True
+    else:
+        if ans not in ['y', 'n']:
+            print(f'{ans} is invalid, please try again...')
+            return yesno(question)
+        if ans == 'y':
+            return True
+
+    return False
+
 
 # return formatted hh mm ss
 def timematter(x):
@@ -560,50 +583,4 @@ save_podcast(f'{save_loc}/Podcasts/Shows.csv', saved_podcast_data)
 logging.info('Loading saved podcast episodes...')
 saved_episode_data = spotify.list("me/episodes", {'limit': 50})
 logging.info('Saving episodes')
-save_episode(f'{save_loc}/Podcasts/Episodes.csv', saved_episode_data)
-
-
-# upload files to b2
-if not always_yes:
-    b2_upload = yesno('Upload files to Backblaze? [Y/n]: ', 'y')
-else:
-    b2_upload = True
-
-if b2_upload:
-    keyID = os.environ['B2_KEY_ID']
-    appKey = os.environ['B2_APP_KEY']
-
-    # init b2
-    info = InMemoryAccountInfo()
-    b2_api = B2Api(info)
-    b2_api.authorize_account("production", keyID, appKey)
-
-    # setup upload info
-    b2_save_loc = f"Spotify{save_loc.replace(os.path.dirname(os.path.realpath(__file__)), '')}"
-    file_info = {'how', 'good-file'}
-    bucket = b2_api.get_bucket_by_name(os.environ['B2_BUCKET'])
-
-    logging.info(f'Uploading {save_loc} to {os.environ["B2_BUCKET"]}')
-    destination = f'b2://{os.environ["B2_BUCKET"]}/{b2_save_loc}'
-    source = parse_sync_folder(save_loc, b2_api)
-    destination = parse_sync_folder(destination, b2_api)
-
-    # init uploader
-    synchronizer = Synchronizer(max_workers=5)
-
-    # upload files
-    with SyncReport(sys.stdout, True) as report:
-        synchronizer.sync_folders(source_folder=source,
-                                  dest_folder=destination,
-                                  now_millis=int(round(time.time() * 1000)),
-                                  reporter=report)
-
-    logging.info(f'Successfully uploaded to {b2_save_loc}')
-
-    if (os.environ["HEALTH_CHECK_URL"]):
-        elapsed_time = int((time.time() - start_time) * 1000)
-        requests.get(os.environ["HEALTH_CHECK_URL"] + str(elapsed_time))
-
-
-if delete_backup:
-    shutil.rmtree(save_loc)
+save_episode(f'{save_loc}/Podcasts/Episodes.csv', sa
