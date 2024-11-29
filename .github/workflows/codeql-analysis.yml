@@ -1,4 +1,4 @@
-name: Save songs
+name: Backup
 
 on:
   schedule:
@@ -21,7 +21,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Execute Python script
-        run: python spotify-backup.py
+        run: python spotify-backup.py --always-yes
         env:
           SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
