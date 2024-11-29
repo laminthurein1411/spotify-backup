@@ -21,7 +21,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Execute Python script
-        run: python spotify-backup.py --always-yes
+        run: python spotify-backup.py -y
         env:
           SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
